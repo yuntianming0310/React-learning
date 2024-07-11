@@ -96,3 +96,43 @@ looks as 🏠 Giving each piece of state a **home**
 ### STATE: WHEN AND WHERE?
 
 ![alt text](image.png)
+
+### CHILD_TO_PARENT COMMUNICATION
+
+- 👉 **Child-to-parent communication (inverse data flow):** child updating parent state (data "flowing" **up**)
+
+### DERIVING STATE
+
+```jsx
+const [cart, setCart] = useState([
+  { name: "JavaScript Course", price: 15.99 },
+  { name: "Node.js Bootcamp", price: 14.99 },
+]);
+
+const [numItems, setNumItems] = useState(2);
+const [totalPrice, setTotalPrice] = useState(30.98);
+```
+
+- 👎 Three separate pieces of state, even though numItems and totalPrice depend on cart
+
+- 👎 Need to keep them in sync (update together)
+
+- 👎 3 state updates will cause 3 re-renders
+
+> ⬇️ **DERIVING STATE**
+
+```jsx
+const [cart, setCart] = useState([
+  { name: "JavaScript Course", price: 15.99 },
+  { name: "Node.js Bootcamp", price: 14.99 },
+]);
+
+const numItems = cart.length;
+const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
+```
+
+👍 **Derived state:** state that is computed from an existing piece of state or from props
+
+- 👍 Just regular variables, no useState
+- 👍 cart state is the **single source of truth** for this related data
+- 👍 Works because re-rendering component will **automatically re-calculate** derived state
