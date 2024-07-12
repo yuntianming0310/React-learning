@@ -4,7 +4,7 @@
 
 - WHAT REACT DEVELOPERS NEED TO LEARN ABOUT STATE
 
-  - **What is state** and **why** do we need it? This section
+  - **What is state** and **why** do we need it?
   - How to use state in **practice**
 
     - 👉 useState
@@ -84,3 +84,11 @@ DATA ⇄ UI
 - 👉 When building a component, imagine its view as a **reflection of state changing over time**
 
 - 👉 For data that should not trigger component re-renders, **don't use state**. Use a regular variable instead. This is a common **beginner mistake**.
+
+## THE CHILDREN PROP
+
+> An empty **"hole"** that can be filled by **any JSX the component receives** as children
+
+- The children prop allow us **to pass JSX into an element** (besides regular props)
+- Essential tool to make **reusable** and **configurabel** components (especially component **content**)
+- Really useful for **generic** components that **don't know their content** before being used (e.g. modal)
