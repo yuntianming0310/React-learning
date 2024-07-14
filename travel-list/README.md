@@ -136,3 +136,4 @@ const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
 - 👍 Just regular variables, no useState
 - 👍 cart state is the **single source of truth** for this related data
 - 👍 Works because re-rendering component will **automatically re-calculate** derived state
+
