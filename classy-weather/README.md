@@ -1,0 +1,5 @@
+# SECTION-8
+
+## FUNCTION COMPONENTS VS. CLASS COMPONENTS
+
+![alt text](image.png)
