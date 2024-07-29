@@ -9,18 +9,16 @@ export default function Homepage() {
 
       <section>
         <h1>
-          You travel the world.
+          周游世界
           <br />
-          WorldWise keeps track of your adventures.
+          WorldWise 记录你的足迹
         </h1>
         <h2>
-          A world map that tracks your footsteps into every city you can think
-          of. Never forget your wonderful experiences, and show your friends how
-          you have wandered the world.
+          一个记录你每一个城市足迹的世界地图。永远不要忘记你的美好经历，向你的朋友展示你如何漫游世界。
         </h2>
 
-        <Link to="/app" className="cta">
-          Start tracking now
+        <Link to="/login" className="cta">
+          即刻开始记录
         </Link>
       </section>
     </main>
