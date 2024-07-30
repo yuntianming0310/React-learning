@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# SECTION-12 PERFORMANCE OPTIMIZATION AND ADVANCED USEEFFECT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## PERFORMANCE OPTIMIZATION TOOLS
 
-## Available Scripts
+1. **PREVENT WASTED RENDERS**
+   - 👉 `memo`
+   - 👉 `useMemo`
+   - 👉 `useCallback`
+   - 👉 Passing elements as `children` or regular prop
+2. **IMPROVE APP SPEED/RESPONSIVENESS**
+   - 👉 `useMemo`
+   - 👉 `useCallback`
+   - 👉 `useTransition`
+3. **REDUCE BUNDLE SIZE**
+   - 👉 Using fewer 3rd-party packages
+   - 👉 Code splitting and lazy loading
 
-In the project directory, you can run:
+> 👋 This list of tools and techniques is, by no means, exhaustice. You're already doing many optimizations by following the best practices I have been showing you ☝️
 
-### `npm start`
+## WHEN DOES A COMPONENTS INSTANCE RE-RENDER?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+> 👉 A component instance only gets re-rendered in 3 different situations:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. 🧠 **STATE CHANGES**
+2. 🌐 **CONTEXT CHANGES**
+3. 🧑‍👩‍🧒 **PARENT RE-RENDERS**
+   Creates the false impression that **changing props** re-renders a component. This is **NOT** true.
 
-### `npm test`
+> 👋 **Remember**: a render does **_not_ mean that the DOM actually gets updated**, it just means the component function gets called. But this can be an expensive operation.
+> ⬇️⬇️⬇️
+> 👉 **Wasted render**: a render that didn't produce any change in the DOM --Usually no problem, as React is very fast!
+> 👉 Only a problem when they happen **too frequently** or when the **component is very slow**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## WHAT IS MEMOIZATION?
 
-### `npm run build`
+> 👉 **Memoization**: Optimization technique that executes a pure function onece, and saves the result in memory. If we try to execute the function again with the **same arguments as before**, the previously saved result will be returned, **without executing the function again**.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![alt text](image.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 👉 Memoize **components** with `memo`
+- 👉 Memoize **objects** with `useMemo`
+- 👉 Memoize **functions** with `useCallback`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Prevent wasted renders**
+2. **Improve app speed/responsiveness**
 
-### `npm run eject`
+## THE MEMO FUNCTION
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### `memo`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 👉 Used to create a component that will **not re-render when its parent re-renders**, as long as the **props stay the same between renders**
+  Memoized component
+- 👉 **Only affects props**! A memoized component will still re-render when its **own state changes** or when a **context that it's subscribed to changes**
+- 👉 Only makes sense when the component is **heavy**(slow rendering), **re-renders often**, and does so **with the same props**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![alt text](image-1.png)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## AN ISSUE WITH `MEMO`
 
-## Learn More
+![alt text](image-2.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## TWO NEW HOOKS: USEMEMO AND USECALLBACK
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### `useMemo` AND `useCallback`
 
-### Code Splitting
+- 👉 Used to memoize values (**`useMemo`**) and functions (**`useCallback`**) **between renders**
+- 👉 Values passed into useMemo and useCallback will be stored in memory ("cached") and r**eturned in subsequent re-renders, as long as dependencies** (_"inputs"_) **stay the same**
+- 👉 `useMemo` and `useCallback` have a **dependency array** (like `useEffect`): whenever one **dependency changes**, the value will be **re-created**
+- 👉 Only use them for one of the three **use cases**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![alt text](image-3.png)
 
-### Analyzing the Bundle Size
+### THREE BIG USES CASES:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Memoizing props to prevent wasted renders (together with `memo`)
+2. Memoizing values to avoid expensive re-calculations on every render
+3. Memoizing values that are used in dependency array of another hook
+   For example to avoid infinite `useEffect` loops
