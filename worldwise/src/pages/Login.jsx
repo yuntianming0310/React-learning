@@ -10,7 +10,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   // PRE-FILL FOR DEV PURPOSES
-  const [email, setEmail] = useState("jack@example.com");
+  const [email, setEmail] = useState("bkbk@email.com");
   const [password, setPassword] = useState("qwerty");
 
   useEffect(
