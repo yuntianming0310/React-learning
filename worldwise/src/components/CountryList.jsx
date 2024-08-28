@@ -10,9 +10,7 @@ function CountryList() {
   if (isLoading) return <Spinner />;
 
   if (!cities.length)
-    return (
-      <Message message="Add your first city by clicking on a city on the map" />
-    );
+    return <Message message="通过点击地图上的城市来添加你的第一个足迹" />;
 
   const countries = cities.reduce((arr, city) => {
     if (!arr.map((el) => el.country).includes(city.country))
